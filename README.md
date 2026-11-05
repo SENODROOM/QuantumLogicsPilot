@@ -63,6 +63,32 @@ A **MERN** (MongoDB, Express, React, Node.js) starter project that demonstrates 
 - **Node.js** (>= 18) and **npm** (>= 9) installed globally.
 - **MongoDB** instance – you can use a local installation or a cloud service like MongoDB Atlas. Create a connection string and add it to a `.env` file in the `backend/` folder:
   ```
+```
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/800x600)
+
+## Frontend Features
+
+- Header with site branding
+- Loading spinner while fetching items
+- Error banner for fetch failures
+- Responsive card layout with hover/focus effects
+- Accessibility improvements (ARIA roles, keyboard navigation)
+
+
+### Frontend Features (Updated)
+
+- **Responsive Mobile Navigation**: Added a toggle button (`.menu-toggle`) that shows/hides the navigation menu on small screens. Includes ARIA attributes for accessibility and keyboard support.
+- **Loading Spinner**: New `LoadingSpinner` component displays a CSS‑animated spinner while data is being fetched.
+- **Accessibility Improvements**:
+  * Navigation container now has `aria-label="Main navigation"`.
+  * All interactive elements have appropriate ARIA labels.
+  * Keyboard navigation works for the mobile menu toggle.
+- **Smooth Scrolling**: `html { scroll-behavior: smooth; }` enables smooth scrolling for anchor links.
+
+```
   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/quantumlogics?retryWrites=true&w=majority
   PORT=5000
   ```

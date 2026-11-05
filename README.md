@@ -1,175 +1,49 @@
 # QuantumLogicsPilot
 
-A **MERN** (MongoDB, Express, React, Node.js) starter project that demonstrates a clean, modern full‑stack architecture with a responsive UI and a simple CRUD API.
+[![Build Status](https://img.shields.io/github/actions/workflow/status/SENODROOM/QuantumLogicsPilot/ci.yml?branch=main)](https://github.com/SENODROOM/QuantumLogicsPilot/actions)
+[![npm version](https://img.shields.io/npm/v/quantumlogics-pilot.svg)](https://www.npmjs.com/package/quantumlogics-pilot)
+[![License](https://img.shields.io/github/license/SENODROOM/QuantumLogicsPilot)](https://github.com/SENODROOM/QuantumLogicsPilot/blob/main/LICENSE)
 
----
+## Overview
+A MERN starter project with a responsive UI and CRUD API.
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Tech Stack](#tech-stack)
-- [Folder Structure](#folder-structure)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
-- [Frontend Features](#frontend-features)
-- [Backend Features](#backend-features)
-- [Contributing](#contributing)
-- [License](#license)
+## Getting Started
 
----
-
-## Project Overview
-`QuantumLogicsPilot` is a minimal yet production‑ready MERN boilerplate. It includes:
-- **Backend** – Express server with Mongoose for MongoDB, a single `Item` model, and full CRUD routes under `/api/items`.
-- **Frontend** – A React application (no CRA scaffolding) that fetches the items, displays them in a responsive card layout, and follows a design system based on the provided colour palette, typography, and spacing.
-- **Root scripts** – A single `npm start` command that runs both the backend and frontend concurrently using the `concurrently` package.
-
----
-
-## Tech Stack
-| Layer | Technology |
-|-------|------------|
-| **Database** | MongoDB (via Mongoose) |
-| **Server**   | Node.js, Express |
-| **Client**   | React, Axios |
-| **Tooling**  | npm, concurrently, nodemon |
-| **Styling**  | CSS (custom properties, mobile‑first) |
-
----
-
-## Folder Structure
-```
-.
-├── README.md               # You are reading it!
-├── .gitignore              # Git ignore rules
-├── package.json            # Root package.json (concurrently scripts)
-├── backend/                # Express API
-│   ├── package.json        # Backend dependencies & scripts
-│   └── server.js           # Entry point, routes, DB connection
-└── frontend/               # React UI
-    ├── package.json        # Frontend dependencies & scripts
-    ├── public/
-    │   └── index.html     # HTML skeleton
-    └── src/
-        ├── index.js       # React entry point
-        ├── App.js          # Main component (Header, Hero, Footer, etc.)
-        └── App.css         # Styling following the design system
-```
-
----
-
-## Prerequisites
-- **Node.js** (>= 18) and **npm** (>= 9) installed globally.
-- **MongoDB** instance – you can use a local installation or a cloud service like MongoDB Atlas. Create a connection string and add it to a `.env` file in the `backend/` folder:
-  ```
-```
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/800x600)
-
-## Frontend Features
-
-- Header with site branding
-- Loading spinner while fetching items
-- Error banner for fetch failures
-- Responsive card layout with hover/focus effects
-- Accessibility improvements (ARIA roles, keyboard navigation)
-
-
-### Frontend Features (Updated)
-
-- **Responsive Mobile Navigation**: Added a toggle button (`.menu-toggle`) that shows/hides the navigation menu on small screens. Includes ARIA attributes for accessibility and keyboard support.
-- **Loading Spinner**: New `LoadingSpinner` component displays a CSS‑animated spinner while data is being fetched.
-- **Accessibility Improvements**:
-  * Navigation container now has `aria-label="Main navigation"`.
-  * All interactive elements have appropriate ARIA labels.
-  * Keyboard navigation works for the mobile menu toggle.
-- **Smooth Scrolling**: `html { scroll-behavior: smooth; }` enables smooth scrolling for anchor links.
-
-```
-  MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/quantumlogics?retryWrites=true&w=majority
-  PORT=5000
-  ```
-
----
-
-## Installation
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/SENODROOM/QuantumLogicsPilot.git
-   cd QuantumLogicsPilot
-   ```
-2. **Install all dependencies** (both backend and frontend) using the root script:
-   ```bash
-   npm run install
-   ```
-   This runs `npm install` inside `backend/` and `frontend/`.
-
----
-
-## Running the Application
-### Development (concurrently)
 ```bash
-npm start
-```
-- Starts the **backend** on `http://localhost:5000` (or the `PORT` defined in `.env`).
-- Starts the **frontend** on `http://localhost:3000` and proxies API requests to the backend.
+# Clone the repo
+git clone https://github.com/SENODROOM/QuantumLogicsPilot.git
+cd QuantumLogicsPilot
 
-### Backend only
+# Install root dependencies
+npm install
+
+# Install backend and frontend dependencies
+npm install --prefix backend
+npm install --prefix frontend
+
+# Create an .env file based on the example
+cp .env.example .env
+```
+
+### Development
+
 ```bash
-npm run dev --prefix backend
+# Run both backend and frontend concurrently
+npm run dev
 ```
-Runs the Express server with **nodemon** for hot‑reloading.
 
-### Frontend only
-```bash
-npm start --prefix frontend
-```
-Starts the React development server.
+## Scripts
+- `npm run start` – Starts the backend server.
+- `npm run client` – Starts the React development server.
+- `npm run dev` – Runs both servers concurrently.
+- `npm run lint` – Lints the entire codebase.
+- `npm run format` – Formats code with Prettier.
 
----
-
-## API Endpoints
-All endpoints are prefixed with `/api/items`.
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET`    | `/api/items` | Retrieve all items.
-| `POST`   | `/api/items` | Create a new item. Body: `{ "name": "string", "description": "string" }`
-| `GET`    | `/api/items/:id` | Retrieve a single item by ID.
-| `PUT`    | `/api/items/:id` | Update an item. Body same as POST.
-| `DELETE` | `/api/items/:id` | Delete an item.
-
----
-
-## Frontend Features
-- **Sticky header** with navigation placeholder.
-- **Hero section** with a background image and call‑to‑action button.
-- **Responsive card layout** that displays the list of items fetched from the backend.
-- **Design system** implemented via CSS custom properties (colors, spacing, typography, etc.).
-- **Mobile‑first** layout with graceful breakpoints at 640px, 900px, and 1200px.
-- **Accessibility** – semantic HTML, focus styles, and `aria` attributes for the mobile menu (future extension).
-
----
-
-## Backend Features
-- **Environment configuration** via `dotenv`.
-- **Mongoose schema** for an `Item` with `name` (required) and `description` fields.
-- **CORS** enabled for the frontend origin.
-- **Error handling** – basic try/catch with appropriate HTTP status codes.
-- **Nodemon** for development hot‑reloading.
-
----
+## Linting & Formatting
+ESLint and Prettier are configured at the repository root. Run `npm run lint` to check for linting errors and `npm run format` to automatically format the code.
 
 ## Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests.
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/awesome-feature`).
-3. Commit your changes and push to your fork.
-4. Open a pull request against the `main` branch.
-
----
+Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
-This project is licensed under the MIT License – see the `LICENSE` file for details.
+MIT © 2024 QuantumLogicsPilot

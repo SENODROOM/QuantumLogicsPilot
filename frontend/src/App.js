@@ -8,46 +8,7 @@ function LoadingSpinner() {
 }
 
 // Header component – sticky navigation bar with mobile toggle
-function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
-
-  // Close menu on navigation (useful for mobile)
-  const handleNavClick = () => {
-    if (menuOpen) setMenuOpen(false);
-  };
-
-  return (
-    <header className="header">
-      <div className="container">
-        <h1 className="logo">QuantumLogics Pilot</h1>
-        <button
-          className="menu-toggle"
-          onClick={toggleMenu}
-          aria-label="Toggle navigation menu"
-          aria-expanded={menuOpen}
-        >
-          ☰
-        </button>
-        <nav className={`menu${menuOpen ? ' show' : ''}`} aria-label="Main navigation" onClick={handleNavClick}>
-          <a href="#hero" className="nav-link">
-            Home
-          </a>
-          <a href="#items" className="nav-link">
-            Items
-          </a>
-          <a href="#footer" className="nav-link">
-            Contact
-          </a>
-        </nav>
-      </div>
-    </header>
-  );
-}
-
+import Header from './components/Header';
 // Hero section – full‑width banner
 function Hero() {
   return (

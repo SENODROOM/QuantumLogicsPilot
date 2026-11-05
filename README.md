@@ -63,6 +63,20 @@ A **MERN** (MongoDB, Express, React, Node.js) starter project that demonstrates 
 - **Node.js** (>= 18) and **npm** (>= 9) installed globally.
 - **MongoDB** instance – you can use a local installation or a cloud service like MongoDB Atlas. Create a connection string and add it to a `.env` file in the `backend/` folder:
   ```
+```
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/800x600)
+
+## Frontend Features
+
+- Header with site branding
+- Loading spinner while fetching items
+- Error banner for fetch failures
+- Responsive card layout with hover/focus effects
+- Accessibility improvements (ARIA roles, keyboard navigation)
+
 
 ### Frontend Features (Updated)
 

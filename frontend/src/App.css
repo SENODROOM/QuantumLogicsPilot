@@ -1,12 +1,12 @@
 /* Design System Variables */
 :root {
-  --color-primary: #1976d2;
-  --color-secondary: #ff9800;
+  --color-primary: #4A90E2;
+  --color-secondary: #50E3C2;
   --color-accent: #e91e63;
-  --color-background: #fafafa;
+  --color-background: #F5F7FA;
   --color-surface: #ffffff;
-  --color-text: #212121;
-  --color-muted: #757575;
+  --color-text: #333333;
+  --color-muted: #777777;
 
   --font-family: 'Roboto', sans-serif;
 
@@ -108,6 +108,19 @@ header .menu-toggle {
   font-size: 1.5rem;
 }
 
+/* New Header class */
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-surface);
+  padding: var(--spacing-sm) var(--spacing-md);
+  box-shadow: var(--shadow);
+  z-index: 10;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
@@ -142,6 +155,44 @@ header .menu-toggle {
 .hero p {
   font-size: clamp(1rem, 2.5vw, 1.25rem);
   margin-bottom: var(--spacing-md);
+}
+
+/* Spinner */
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+.spinner::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--color-muted);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Error Banner */
+.error-banner {
+  background: #ff4d4f;
+  color: #fff;
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Card hover/focus effects */
+.card {
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  outline: 2px solid var(--color-primary);
 }
 
 /* Smooth scrolling */

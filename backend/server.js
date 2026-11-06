@@ -12,6 +12,9 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Test-only fictional fixture routes
+require('./fixtureProducts')(app);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);

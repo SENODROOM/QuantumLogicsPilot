@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Example route
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' });
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // Error handling middleware

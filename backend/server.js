@@ -9,6 +9,7 @@ app.use(express.json());
 
 // Example route
 app.get('/api/health', (req, res) => {
+  res.set('X-HackingTheRepo-Test', 'draft-publish-e2e');
   res.json({ status: 'ok' });
 });
 

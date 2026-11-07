@@ -86,6 +86,40 @@ h6 { font-size: clamp(0.875rem, 2vw, 1rem); font-family: 'Roboto Slab', serif; m
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
 }
+
+/* Mobile navigation */
+.nav {
+  display: flex;
+  gap: var(--spacing-2);
+}
+.nav.open {
+  flex-direction: column;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.hamburger .bar {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: transform 0.3s ease;
+}
+@media (max-width: 640px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav {
+    display: none;
+  }
+  .nav.open {
+    display: flex;
+  }
+}
 .btn-outline-primary:hover {
   background: var(--color-primary);
   color: #fff;

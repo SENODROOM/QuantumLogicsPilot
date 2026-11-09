@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/SENODROOM/QuantumLogicsPilot/ci.yml?branch=main)](https://github.com/SENODROOM/QuantumLogicsPilot/actions)
 [![npm version](https://img.shields.io/npm/v/quantumlogics-pilot.svg)](https://www.npmjs.com/package/quantumlogics-pilot)
-[![License](https://img.shields.io/github/license/SENODROOM/QuantumLogicsPilot)](https://github.com/SENODROOM/QuantumLogicsPilot/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/SENODROOM/QuantumLogicsPilot/blob/main/docs/LICENSE)
 
 ## Overview
 A MERN starter project with a responsive UI and CRUD API.
@@ -43,7 +43,7 @@ npm run dev
 ESLint and Prettier are configured at the repository root. Run `npm run lint` to check for linting errors and `npm run format` to automatically format the code.
 
 ## Contributing
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please read the [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
 
 ## License
 MIT © 2024 QuantumLogicsPilot

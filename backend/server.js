@@ -1,15 +1,23 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }));
+// Restrict CORS to the frontend origin (default to localhost with the configured frontend port)
+app.use(
+  cors({
+    origin:
+      process.env.FRONTEND_ORIGIN ||
+      `http://localhost:${process.env.FRONTEND_PORT || 3000}`,
+  })
+);
 app.use(express.json());
 
 // Example route
 app.get('/api/health', (req, res) => {
-  res.set('X-HackingTheRepo-Integration', 'real-groq-fastapi-step38');
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
@@ -26,7 +34,19 @@ app.use((err, req, res, next) => {
   res.status(status).json({ error: err.message || 'Internal Server Error' });
 });
 
+// Dynamic port fallback (already handled via environment variables)
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const server = app.listen(PORT, () => {
+  const actualPort = server.address().port;
+  // Expose the actual port for other parts of the system (e.g., frontend proxy)
+  process.env.ACTUAL_BACKEND_PORT = actualPort;
+  // Persist the actual port to a temporary file for the frontend proxy to read (repository root)
+  const portFile = path.resolve(__dirname, '..', '.backend_port');
+  try {
+    fs.writeFileSync(portFile, actualPort.toString(), { encoding: 'utf8' });
+    console.log(`Backend port written to ${portFile}`);
+  } catch (writeErr) {
+    console.error('Failed to write backend port file:', writeErr);
+  }
+  console.log(`Server running on port ${actualPort}`);
 });

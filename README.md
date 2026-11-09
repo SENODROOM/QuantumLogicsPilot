@@ -1,49 +1,43 @@
 # QuantumLogicsPilot
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/SENODROOM/QuantumLogicsPilot/ci.yml?branch=main)](https://github.com/SENODROOM/QuantumLogicsPilot/actions)
-[![npm version](https://img.shields.io/npm/v/quantumlogics-pilot.svg)](https://www.npmjs.com/package/quantumlogics-pilot)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/SENODROOM/QuantumLogicsPilot/blob/main/docs/LICENSE)
+A MERN starter project.
 
-## Overview
-A MERN starter project with a responsive UI and CRUD API.
+## Environment Variables
 
-## Getting Started
+- `BACKEND_PORT` – Port on which the Express backend will listen (default **5000**). If the port is already in use the server will automatically try the next port, up to 5 attempts.
+- `FRONTEND_PORT` – Port for the Create‑React‑App development server (default **3000**). The frontend reads this via `frontend/.env`.
+
+Both variables are defined in `.env.example`. Copy the file to `.env` and adjust the values as needed.
+
+## Proxy Configuration
+
+The frontend now uses a dynamic proxy defined in `frontend/src/setupProxy.js`. It forwards all `/api` requests to the backend using the **actual** port the backend ends up listening on (the value is written to a temporary `.backend_port` file by the server at startup). This ensures the proxy works even when the backend falls back to an alternative port.
+
+The static `proxy` field has been removed from `frontend/package.json`.
+
+**Note:** The `.backend_port` file is written to the **repository root** (i.e., `./.backend_port`). The frontend proxy reads this file from the same location, ensuring both sides reference the same port information.
+
+*The backend writes its listening port to `./.backend_port`. The frontend proxy reads this file to forward API requests to the correct port. Do not move this file; keep it at the repository root.*
+
+## Security Hardening
+
+- **Restricted CORS** – The backend now sets CORS to allow only the frontend origin (`http://localhost:${process.env.FRONTEND_PORT || 3000}`) instead of the insecure wildcard (`"*"`). This prevents any website from making unauthorized requests to the API.
+- **Removed Sensitive Header** – The custom response header `X-HackingTheRepo-Integration` has been removed to avoid leaking internal integration details that could aid an attacker.
+- **Dynamic Proxy Alignment** – The proxy reads the backend's actual listening port (from `.backend_port` or the fallback environment variable) so requests are correctly routed even when the backend switches ports due to port‑collision fallback logic.
+
+These changes address the high‑severity CORS issue, the low‑severity information‑leak header, and the medium‑severity proxy mismatch.
+
+## Running the Project
 
 ```bash
-# Clone the repo
-git clone https://github.com/SENODROOM/QuantumLogicsPilot.git
-cd QuantumLogicsPilot
+# Install dependencies
+cd backend && npm install && cd ../frontend && npm install
 
-# Install root dependencies
-npm install
+# Start backend (will use BACKEND_PORT or fallback)
+cd ../backend && npm start
 
-# Install backend and frontend dependencies
-npm install --prefix backend
-npm install --prefix frontend
-
-# Create an .env file based on the example
-cp .env.example .env
+# Start frontend (will use FRONTEND_PORT or fallback)
+cd ../frontend && npm start
 ```
 
-### Development
-
-```bash
-# Run both backend and frontend concurrently
-npm run dev
-```
-
-## Scripts
-- `npm run start` – Starts the backend server.
-- `npm run client` – Starts the React development server.
-- `npm run dev` – Runs both servers concurrently.
-- `npm run lint` – Lints the entire codebase.
-- `npm run format` – Formats code with Prettier.
-
-## Linting & Formatting
-ESLint and Prettier are configured at the repository root. Run `npm run lint` to check for linting errors and `npm run format` to automatically format the code.
-
-## Contributing
-Contributions are welcome! Please read the [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
-
-## License
-MIT © 2024 QuantumLogicsPilot
+The application will automatically select alternative ports if the defaults are occupied.

@@ -9,6 +9,7 @@ app.use(express.json());
 
 // Example route
 app.get('/api/health', (req, res) => {
+  res.set('X-HackingTheRepo-Integration', 'real-groq-fastapi-step38');
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 

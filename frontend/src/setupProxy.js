@@ -12,12 +12,12 @@ const path = require('path');
  *
  * If the file is missing (for example during the very first start) we fall
  * back to the configured `BACKEND_PORT` environment variable, then to the
- * generic `PORT` variable, and finally to the historic default of `5000`.
+ * historic default of `5000`.
  */
 function getBackendPort() {
   try {
     // Resolve the path to the root‑level .backend_port file.
-    const portFilePath = path.resolve(__dirname, '../../', '.backend_port');
+    const portFilePath = path.resolve(__dirname, '../../.backend_port');
     const data = fs.readFileSync(portFilePath, { encoding: 'utf8' }).trim();
     const port = parseInt(data, 10);
     if (!isNaN(port) && port > 0) {
@@ -29,7 +29,7 @@ function getBackendPort() {
     // fallback chain below.
     console.warn('Could not read .backend_port file. Falling back to environment variables.', err.message);
   }
-  return process.env.BACKEND_PORT || process.env.PORT || 5000;
+  return process.env.BACKEND_PORT || 5000;
 }
 
 const backendPort = getBackendPort();

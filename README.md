@@ -37,6 +37,19 @@ cd backend && npm install && cd ../frontend && npm install
 cd ../backend && npm start
 
 # Start frontend (will use FRONTEND_PORT or fallback)
+```
+```
+
+## Development
+
+For convenience a root‑level script is provided to run both backend and frontend concurrently:
+
+```bash
+npm run dev
+```
+
+The `dev` script uses `npx concurrently` to start the backend and frontend in one terminal, handling dynamic port fallback automatically.
+
 cd ../frontend && npm start
 ```
 

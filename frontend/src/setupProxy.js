@@ -6,9 +6,9 @@ const path = require('path');
  * Resolve the actual backend port.
  *
  * The backend server writes its listening port to a temporary file named
- * `.backend_port` located at the repository root (e.g. `./.backend_port`).
- * This proxy reads that file so it can forward API requests to the correct
- * port even when the backend falls back to an alternative port.
+ * `.backend_port` located at the repository root. This proxy reads that file
+ * so it can forward API requests to the correct port even when the backend
+ * falls back to an alternative port.
  *
  * If the file is missing (for example during the very first start) we fall
  * back to the configured `BACKEND_PORT` environment variable, then to the
@@ -17,7 +17,7 @@ const path = require('path');
 function getBackendPort() {
   try {
     // Resolve the path to the root‑level .backend_port file.
-    const portFilePath = path.resolve(__dirname, '../../.backend_port');
+    const portFilePath = path.resolve(__dirname, '..', '..', '.backend_port');
     const data = fs.readFileSync(portFilePath, { encoding: 'utf8' }).trim();
     const port = parseInt(data, 10);
     if (!isNaN(port) && port > 0) {

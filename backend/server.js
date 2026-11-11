@@ -7,35 +7,51 @@ const path = require('path');
 // Create Express app
 const app = express();
 
-// Middleware to parse JSON bodies
-app.use(express.json());
+// Determine frontend origin for CORS (default to localhost:3000)
+const frontendPort = process.env.FRONTEND_PORT || 3000;
+const frontendOrigin = `http://localhost:${frontendPort}`;
 
-// Configure CORS – allow only the frontend origin defined in .env (fallback to localhost:3000)
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || 'http://localhost:3000';
-app.use(cors({ origin: FRONTEND_ORIGIN, credentials: true }));
+// Apply middlewares
+app.use(cors({ origin: frontendOrigin }));
+app.use(express.json());
 
 // Simple health check route
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: Date.now() });
+  res.json({ status: 'ok' });
 });
 
-// Add any additional routes here (e.g., placeholder)
-// app.use('/api/your-route', yourRouter);
+// Dynamic port fallback logic
+const maxAttempts = 5;
+let basePort = parseInt(process.env.BACKEND_PORT, 10) || 5000;
+let attempt = 0;
 
-// Determine the port to listen on – use env PORT or default to 5000
-const PORT = process.env.PORT || 5000;
+function startServer(port) {
+  const server = app.listen(port, () => {
+    console.log(`Backend server listening on http://localhost:${port}`);
+    // Write the actual port to a .backend_port file at the repository root
+    const portFilePath = path.resolve(__dirname, '../.backend_port');
+    try {
+      fs.writeFileSync(portFilePath, String(port), { encoding: 'utf8' });
+      console.log(`Wrote backend port ${port} to ${portFilePath}`);
+    } catch (err) {
+      console.error('Failed to write backend port file:', err);
+    }
+  });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  // Handle server errors (e.g., EADDRINUSE) and attempt fallback
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE' && attempt < maxAttempts) {
+      attempt += 1;
+      const newPort = basePort + attempt;
+      console.warn(`Port ${port} in use, trying fallback port ${newPort}...`);
+      startServer(newPort);
+    } else {
+      console.error('Server failed to start:', err);
+    }
+  });
+}
 
-  // Write the actual listening port to a .backend_port file at the repository root.
-  // This path matches the location expected by frontend/src/setupProxy.js.
-  const portFilePath = path.resolve(__dirname, '..', '.backend_port');
-  try {
-    fs.writeFileSync(portFilePath, String(PORT), { encoding: 'utf8' });
-    console.log(`Wrote backend port (${PORT}) to ${portFilePath}`);
-  } catch (err) {
-    console.error('Failed to write .backend_port file:', err);
-  }
-});
+// Initial attempt
+startServer(basePort);
+
+module.exports = app;

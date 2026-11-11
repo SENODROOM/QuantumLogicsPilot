@@ -87,6 +87,18 @@ h6 { font-size: clamp(0.875rem, 2vw, 1rem); font-family: 'Roboto Slab', serif; m
   color: var(--color-primary);
 }
 
+/* Hero image responsive styling */
+.hero-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
 /* Mobile navigation */
 .nav {
   display: flex;

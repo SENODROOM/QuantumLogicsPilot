@@ -1,3 +1,5 @@
+![QuantumLogicsPilot Logo](frontend/public/logo.svg)
+
 # QuantumLogicsPilot
 
 A MERN starter project.
@@ -17,8 +19,6 @@ The static `proxy` field has been removed from `frontend/package.json`.
 
 **Note:** The `.backend_port` file is written to the **repository root** (i.e., `./.backend_port`). The frontend proxy reads this file from the same location, ensuring both sides reference the same port information.
 
-*The backend writes its listening port to `./.backend_port`. The frontend proxy reads this file to forward API requests to the correct port. Do not move this file; keep it at the repository root.*
-
 ## Security Hardening
 
 - **Restricted CORS** – The backend now sets CORS to allow only the frontend origin (`http://localhost:${process.env.FRONTEND_PORT || 3000}`) instead of the insecure wildcard (`"*"`). This prevents any website from making unauthorized requests to the API.
@@ -37,7 +37,7 @@ cd backend && npm install && cd ../frontend && npm install
 cd ../backend && npm start
 
 # Start frontend (will use FRONTEND_PORT or fallback)
-```
+cd ../frontend && npm start
 ```
 
 ## Development
@@ -49,8 +49,3 @@ npm run dev
 ```
 
 The `dev` script uses `npx concurrently` to start the backend and frontend in one terminal, handling dynamic port fallback automatically.
-
-cd ../frontend && npm start
-```
-
-The application will automatically select alternative ports if the defaults are occupied.

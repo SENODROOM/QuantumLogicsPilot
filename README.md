@@ -7,7 +7,7 @@ A MERN starter project.
 ## Environment Variables
 
 - `BACKEND_PORT` – Port on which the Express backend will listen (default **5000**). If the port is already in use the server will automatically try the next port, up to 5 attempts.
-- `FRONTEND_PORT` – Port for the Create‑React‑App development server (default **3000**). The frontend reads this via `frontend/.env`.
+- `FRONTEND_PORT` – Port for the Create‑React‑App development server (default **4999**). The frontend reads this via `frontend/.env`.
 
 Both variables are defined in `.env.example`. Copy the file to `.env` and adjust the values as needed.
 
@@ -36,8 +36,11 @@ cd backend && npm install && cd ../frontend && npm install
 # Start backend (will use BACKEND_PORT or fallback)
 cd ../backend && npm start
 
-# Start frontend (will use FRONTEND_PORT or fallback)
+# Start frontend (default port 4999)
 cd ../frontend && npm start
+
+# Or start frontend on alternative port 6999
+cd ../frontend && npm run start:6999
 ```
 
 ## Development
